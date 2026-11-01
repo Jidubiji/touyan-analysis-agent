@@ -1,0 +1,20 @@
+{
+  "name": "jidubiji-research",
+  "interface": {
+    "displayName": "季度笔记投研插件"
+  },
+  "plugins": [
+    {
+      "name": "touyan-analysis-agent",
+      "source": {
+        "source": "local",
+        "path": "./plugins/touyan-analysis-agent"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Finance"
+    }
+  ]
+}

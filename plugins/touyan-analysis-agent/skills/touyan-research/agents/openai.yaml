@@ -1,0 +1,4 @@
+interface:
+  display_name: "投研分析 Agent"
+  short_description: "按商业模式匹配估值方法，研究产业链利润池，输出投资判断与下一步研究方向"
+  default_prompt: "使用 $touyan-research 分析 MSFT 的投资价值，输出完整报告和下一步研究方向。"

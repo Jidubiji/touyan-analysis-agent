@@ -1,0 +1,53 @@
+{
+  "interface": {
+    "capabilities": [],
+    "category": "Finance",
+    "composerIcon": "./assets/composer-icon.png",
+    "defaultPrompt": [
+      "分析 MSFT 的投资价值，按完整估值框架输出，并给出下一步研究方向。",
+      "研究 AI 半导体产业链的瓶颈、利润池、受益路径和证伪指标。",
+      "对 AMZN 做 SOTP 估值，列清分部价值、净现金调节和敏感性。"
+    ],
+    "displayName": "投研分析 Agent",
+    "logo": "./assets/logo.png",
+    "longDescription": "Research US-listed companies and industry value chains using a repeatable, source-backed workflow. Enter a ticker for a full Chinese-language valuation report, or ask an industry-chain question to examine supply and demand, bottlenecks, bargaining power, profit pools, beneficiaries, risks, and disconfirming evidence.\n\nCompany research selects valuation methods by business model, checks the freshness of filings and management updates, compares independent assumptions with management guidance, and uses applicable relative valuation, cash-flow, SOTP and market-implied expectations. Full reports include prioritized next research questions and carry the 季度笔记 signature.\n\nThis skills-only plugin runs in the installer's own ChatGPT or Codex environment. Model usage counts toward that account's or workspace's applicable limits; if the installer uses an API key, billing follows that API account. The package contains no publisher-operated model API, MCP server, payment flow, or paid data connection. No publisher computer needs to remain online.\n\nCurrent market research requires web search or data tools available to the user. Missing data and incomplete freshness checks must be disclosed; the plugin does not supply a market-data subscription. Outputs support general research, do not guarantee returns, and do not execute trades.",
+    "shortDescription": "US equity research workflows"
+  },
+  "name": "touyan-analysis-agent",
+  "version": "0.1.3",
+  "description": "Source-backed US equity valuation and industry-chain research in the user's own ChatGPT or Codex environment.",
+  "keywords": [
+    "equity-research",
+    "valuation",
+    "industry-chain",
+    "sotp",
+    "投研"
+  ],
+  "skills": "./skills",
+  "extensions": {
+    "com.openai": {
+      "review": {
+        "prompts": [
+          "MSFT：请按完整估值框架分析，并给出下一步研究方向。",
+          "研究 AI 半导体产业链的供需瓶颈、利润池与核心受益路径。",
+          "对 AMZN 做 SOTP，列清各分部 EV/股权价值、集团净现金调节和敏感性。",
+          "公司财报后刚发布了 Investor Day 更新，应该如何核验并纳入双 Base 估值？",
+          "只提供了旧财报，也无法核验最新管理层更新时，请说明可以完成什么、哪些估值结论应暂缓。",
+          "JPM：请解释银行估值适用的方法，以及哪些方法不应机械使用。",
+          "请解释使用这个插件的额度由谁承担，以及它是否需要作者的 API Key。"
+        ],
+        "commerce": false
+      },
+      "publication": {
+        "countries": [],
+        "release_notes": "Initial public skills-only package. Includes valuation SOP v2.0, industry-chain research and the official next-research-questions supplement. Runs on the user's own model account; no publisher-funded model API or backend.",
+        "translations": {
+          "zh-Hans": {
+            "subtitle": "公司估值、产业链与研究方向",
+            "description": "面向美股上市公司的中文估值与产业链研究。输入股票代码默认完整公司估值；输入产业链主题，分析供需、瓶颈、议价权、利润池和受益路径。完整报告包含下一步研究方向，署名“季度笔记”。插件在使用者自己的 ChatGPT／Codex 环境运行，消耗使用者账号或工作区额度；不接作者模型 API、付费后台或数据订阅。最新数据依赖使用者可用的检索或授权工具；缺失数据明确披露。不执行交易。"
+          }
+        }
+      }
+    }
+  }
+}

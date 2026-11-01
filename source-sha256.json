@@ -1,0 +1,17 @@
+{
+  "plugins/touyan-analysis-agent/.codex-plugin/plugin.json": "7204abe16fda87a306a559002aa0c4c8ef41179487b458e9ce05e1b29679b420",
+  "plugins/touyan-analysis-agent/assets/composer-icon.png": "9ec1653f2e1db89c2572ba87d34302676908d0143e6dc23fec57568820614684",
+  "plugins/touyan-analysis-agent/assets/composer-icon.svg": "a7c33b2535fb18833b32c607d404e005e9df7e266c4618569be5be90fdb17b40",
+  "plugins/touyan-analysis-agent/assets/logo.png": "9ec1653f2e1db89c2572ba87d34302676908d0143e6dc23fec57568820614684",
+  "plugins/touyan-analysis-agent/assets/logo.svg": "a7c33b2535fb18833b32c607d404e005e9df7e266c4618569be5be90fdb17b40",
+  "plugins/touyan-analysis-agent/plugin.json": "755b328eac105038b382e13b2604969072fd940f8a887b84525a68514574bbe0",
+  "plugins/touyan-analysis-agent/skills/touyan-research/SKILL.md": "3a7971cc5579130e82e606cd745284238023e45c7d6d12a54f32b95c6908d60a",
+  "plugins/touyan-analysis-agent/skills/touyan-research/agents/openai.yaml": "949b67e1c27b242701f8a2bb9d904f941462c794879c459a32e4b8368a742197",
+  "plugins/touyan-analysis-agent/skills/touyan-research/references/source-index.md": "6f7fd866df52949dac692d6db7edeccbece1b402a0befd7a8229d701ac82f5f4",
+  "plugins/touyan-analysis-agent/skills/touyan-research/references/valuation_agent_instructions_REPLACE.md": "03ebafb6132ddd762373648331f63f551783ce637f9bf72c398f7f475a0e2aa6",
+  "plugins/touyan-analysis-agent/skills/touyan-research/references/产业链研究知识文件.md": "86909682f33038976d2a35cc33738970f20971943e6ad4bcd5863119db9ffcfc",
+  "plugins/touyan-analysis-agent/skills/touyan-research/references/估值分析构建器知识文件.md": "4cfee1a0e9b8b43c2ac550dc0b2bf2c5515a2df777a9a32808572873528e4933",
+  "plugins/touyan-analysis-agent/skills/touyan-research/references/分部加总估值模型 (SOTP, Sum of the Parts).md": "35cc17504a82f1539205a43d885fce56baea75ea75d5bb5361874380174d3cf6",
+  "plugins/touyan-analysis-agent/skills/touyan-research/references/季度笔记_下一步研究方向补丁_v1.0.md": "a79e0d631e27ba9b722e3ee5c0883c8cc98868bda9450bb9b099741aec8049a5",
+  "plugins/touyan-analysis-agent/skills/touyan-research/references/投研 Agent 功能分流补丁.md": "7b01c39012ad551702db78c9fbd806952446a559450073ba31053a7408274fa7"
+}
