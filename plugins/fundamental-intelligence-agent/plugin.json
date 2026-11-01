@@ -1,0 +1,37 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fundamental-intelligence-agent",
+  "version": "1.3.1",
+  "description": "Evidence-led listed-company earnings, management accountability, business-regime and industry-chain research based on Fundamental Intelligence Agent V1.3.1.",
+  "author": {
+    "name": "季度笔记"
+  },
+  "homepage": "https://github.com/Jidubiji/touyan-analysis-agent/tree/main/plugins/fundamental-intelligence-agent",
+  "repository": "https://github.com/Jidubiji/touyan-analysis-agent",
+  "keywords": [
+    "fundamental-research",
+    "earnings",
+    "management-accountability",
+    "valuation",
+    "产业链"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "基本面研究 Agent",
+        "shortDescription": "财报、经营拐点与产业链反证研究",
+        "longDescription": "基于 Fundamental Intelligence Agent V1.3.1，核验上市公司原始财报、电话会与分析师问答、管理层历史承诺、逐业务经营阶段、增长质量、合同及资本义务、产业链矛盾和每股现金流。在数据充分时研究正常化FY1/FY2 Forward P/E、当时可见的历史估值分位与情景估值；缺失证据明确降级。包含10份完整原文件和89个未执行的合成案例定义，性能状态默认not_tested。纯技能插件，在安装者自己的Codex账号运行，不连接发布者API或服务器，不附带付费数据服务。",
+        "developerName": "季度笔记",
+        "category": "Finance",
+        "capabilities": [],
+        "logo": "./assets/logo.png",
+        "composerIcon": "./assets/composer-icon.png",
+        "defaultPrompt": [
+          "使用基本面研究 Agent 复盘 GOOGL 最新财报，核验增长质量、历史承诺和产业链反证，并列出缺失证据。",
+          "研究 INTC 的经营阶段变化，保留旧资产、折旧和债务，核验分部抵销与每股现金流。",
+          "交叉验证云厂商CapEx与上游订单，按产品、财季和时滞对齐，并保留至少两种解释。"
+        ]
+      }
+    }
+  }
+}

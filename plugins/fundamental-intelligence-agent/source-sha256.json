@@ -1,0 +1,16 @@
+{
+  "source_version": "1.3.1",
+  "file_count": 10,
+  "files": {
+    "skills/fundamental-research/references/source-bundle/AGENTS.md": "cd3491e9fb6887a887b7cf705ab7d152c2d8de15300f2813223a3c2922e949dd",
+    "skills/fundamental-research/references/source-bundle/AGENTS_V1.3_backup.md": "23d0bff4a648b66a4705ad8fb27a96b509889abd787f128dd5b92e760b367d48",
+    "skills/fundamental-research/references/source-bundle/QA_TESTS.md": "a77dd5c5d43f8a07113c225187bdd4aada0551f6b2086b6e9c22cfe1ec8805a5",
+    "skills/fundamental-research/references/source-bundle/QA_TESTS_V1.3_backup.md": "f614c54412f33377a56b9f0adbbeef1375611818350a2fce34cbbc56a2461c47",
+    "skills/fundamental-research/references/source-bundle/README_V1.3.1.md": "25ece9a5829f54d10a3ace0dcf7bfa253e30690361cb3dc05de439c23f321447",
+    "skills/fundamental-research/references/source-bundle/V1.3.1_CHANGELOG.md": "83053a3712c4a4c46429ef748e7b85a8fb9c57133965f1da60c1f02b1185b008",
+    "skills/fundamental-research/references/source-bundle/V1.3_CHANGELOG.md": "532fdbb90012d0f0bae3256831d5211b2eedf93f79af06c0dc5e6098dd24fd95",
+    "skills/fundamental-research/references/source-bundle/check_bundle.py": "19d0ffa0d67cc2bf72aa16cc1a71e100857c117dea4655d1afe19eb158606084",
+    "skills/fundamental-research/references/source-bundle/signal_rules.yaml": "f7c4ad49ae9194224b7b0ce58538bd29db340c6595187f73ee2cd19d8ba9cc59",
+    "skills/fundamental-research/references/source-bundle/signal_rules_V1.3_backup.yaml": "b5432362a001bf4f8ddc722ebb31013a1234585aba7f92ea76b08a368adbc774"
+  }
+}

@@ -1,0 +1,357 @@
+# Fundamental Intelligence Agent V1.3 — 初筛规则（研究线索，不是投资交易信号）
+# 生效阈值须针对具体行业、历史波动和可比口径校准。
+ruleset_version: '1.3.0'
+report_timezone: Asia/Shanghai
+market_data_timezone: source_native
+
+sources:
+  require_primary_for_reported_facts: true
+  require_locator_for_key_facts: true
+  deduplicate_same_original_disclosure: true
+  preserve_restatements_and_versions: true
+  enforce_knowledge_time_cutoff: true
+  require_transcript_for_qna_claims: true
+
+# 优先级：来源核验 > 经营阶段/口径闸门 > 经营异常初筛 > 结论/提醒。
+regime_detection:
+  enabled: true
+  required_before_trend_and_valuation: true
+  minimum_scope: metric  # 每个业务/KPI独立判定；不允许只设集团统一断点
+  evidence_required_for_hard_break: true
+  ceo_change_alone_is_hard_break: false
+  price_collapse_alone_is_hard_break: false
+  announcement_is_not_economic_realization: true
+  must_preserve_old_regime_obligations: true
+  preserve_original_and_recast_versions: true
+  disallow_cherry_picked_regime_start: true
+  event_types:
+    - leadership_strategy
+    - segment_reorganization
+    - scope_change
+    - business_model_change
+    - technology_product_shift
+    - capacity_capital_shift
+    - accounting_or_regulatory
+    - market_cycle_shift
+  event_states: [announced, implemented, economically_observed, unverified, reversed]
+  regime_effect_states: [hard_break, soft_transition, no_break, unknown]
+  comparability_states:
+    - direct_comparable
+    - recast_comparable
+    - bridged_estimate
+    - noncomparable
+    - insufficient_data
+  comparison_controls:
+    require_source_for_recast: true
+    bridge_estimate_requires_formula_and_uncertainty: true
+    no_cross_hard_break_growth_without_recast_or_disclosed_bridge: true
+    no_fabricated_yoy_without_matching_prior_period: true
+    no_cross_regime_pe_percentile_if_earnings_not_comparable: true
+    exclude_segment_internal_sales_from_external_demand: true
+  management_clock:
+    attribute_individual_promises_to_issuing_speaker: true
+    retain_prior_company_guidance_for_context: true
+    evaluate_new_strategy_from_implementation_or_observed_effect: true
+  mandatory_bridges: [operating_bridge, legacy_burden_bridge]
+  legacy_obligations:
+    - asset_base_and_depreciation
+    - capex_and_unpaid_construction_commitments
+    - debt_interest_and_leases
+    - impairment_and_disposals
+    - share_issuance_and_dilution
+    - legacy_contracts_and_working_capital
+  prohibit_double_counting_depreciation_in_fcf: true
+  track_depreciation_in_profit_tax_and_roic: true
+  quality_gates:
+    BLOCK:
+      - treating_ceo_change_alone_as_proven_hard_break
+      - blending_noncomparable_kpi_without_bridge
+      - using_fabricated_recast_figures
+      - dropping_legacy_capital_costs_from_new_fcf_model
+    DOWNGRADE:
+      - few_comparable_quarters
+      - unobserved_implementation_or_economic_effect
+      - unclear_transition_date
+      - missing_legacy_burden_quantification
+
+history:
+  selection_mode: adaptive_by_metric
+  current_regime_target_quarters: [4, 6]  # 目标资料长度，非硬性最低要求
+  legacy_context_target_quarters: [8, 12]
+  legacy_context_target_annual_years: [3, 5]
+  capital_intensive_legacy_years: [5, 10]  # 或回溯至项目生命周期开始
+  min_comparable_quarters_for_trend: 4
+  short_history_stances:
+    comparable_quarters_0_to_1: insufficient_data
+    comparable_quarters_2_to_3: early_evidence_only
+    comparable_quarters_4_plus: trend_observation_if_comparable
+  historical_sample_not_minimum_gate: true
+  compare:
+    - yoy_only_with_matching_comparable_prior_period
+    - qoq_with_seasonality_flag
+    - ttm_only_with_comparable_constituents
+  flag_kpi_definition_changes: true
+  report_regime_and_usable_quarters_for_each_key_kpi: true
+
+anomaly_detection:
+  candidate_thresholds_only: true
+  growth_yoy_change_percentage_points: 5.0
+  operating_margin_yoy_change_basis_points: 200
+  one_quarter_signal_status: candidate
+  normal_confirmation_quarters: 2
+  major_official_event_can_accelerate_review: true
+  prioritize_material_earnings_or_fcf_impact: true
+  require_same_basis_and_reporting_calendar: true
+  do_not_extrapolate_nonrecurring_eps: true
+  require_regime_comparability_gate: true
+  avoid_using_legacy_values_to_meet_minimum_sample: true
+  categories:
+    - A1_growth
+    - A2_margin
+    - A3_cash
+    - A4_capital
+    - A5_quality
+    - A6_disclosure
+
+management_audit:
+  eligible_for_numeric_hit_rate:
+    - formal_guidance
+    - quantified_operating_target
+  excluded_from_numeric_hit_rate:
+    - qualitative_commitment
+    - aspiration_or_opinion
+  audit_only_when_target_due_and_actual_disclosed: true
+  preserve_first_guidance_and_all_revisions: true
+  check_currency_metric_period_accounting_scope: true
+  allowed_outcomes:
+    - met
+    - exceeded
+    - missed
+    - postponed
+    - withdrawn
+    - unverifiable
+    - not_due
+  prevent_blame_inference_from_evasiveness_alone: true
+  disallow_aggregate_score_if_tiny_or_mixed_sample: true
+
+cross_company:
+  suggested_peer_count_min: 3
+  suggested_peer_count_max: 5
+  allow_fewer_if_relevance_or_evidence_is_insufficient: true
+  require_relationship_evidence: true
+  require_business_line_and_product_mapping: true
+  require_reporting_period_alignment: true
+  check_demand_to_order_to_shipment_to_revenue_to_cash_lags: true
+  require_at_least_two_competing_explanations: true
+  allow_no_contradiction_null_hypothesis: true
+  types:
+    - X1_demand_order
+    - X2_order_revenue
+    - X3_share
+    - X4_price_margin
+    - X5_capex_utilization
+    - X6_guidance_peer
+  allowed_states:
+    - apparent_only
+    - unresolved
+    - corroborated
+    - refuted
+
+expectation_gap:
+  require_pre_event_time_stamped_consensus_for_consensus_gap: true
+  require_contemporaneous_price_for_valuation_gap: true
+  disallow_noncomparable_historical_pe_percentile: true
+  missing_comparable_percentile_label: historical_percentile_unavailable
+  require_legacy_cash_obligations_in_fcf_scenarios: true
+  label_if_missing: expectation_data_unavailable
+  forecast_horizon_quarters: [4, 8]
+  scenario_names: [bear, base, bull]
+  required_driver_bridge:
+    - volume
+    - price
+    - mix_fx_acquisition
+    - gross_profit
+    - operating_expenses
+    - operating_profit
+    - operating_cash_flow
+    - capex
+    - free_cash_flow
+    - share_count_or_dilution
+
+signal_lifecycle:
+  allowed_states:
+    - candidate
+    - under_review
+    - supported
+    - thesis_material
+    - rejected
+    - resolved
+    - superseded
+  alert_on_states: [thesis_material]
+  allow_high_severity_unverified_risk_alert: true
+  require_warning_label_for_unverified_risk: true
+  alert_on_material_outcome_change: true
+  alert_on_retracted_or_restated_primary_source: true
+  no_alert_on_republication_only: true
+  require_unique_anomaly_id_and_event_log: true
+
+quality_gates:
+  blocker_conditions:
+    - missing_primary_source_for_core_number
+    - fictitious_source_or_quote
+    - YTD_misread_as_quarter
+    - event_time_lookahead
+    - transcript_missing_but_qna_claimed
+    - fictitious_customer_supplier_relationship
+  downgrade_conditions:
+    - unsupported_direct_relationship
+    - missing_consensus_snapshot
+    - missing_profit_exposure
+    - single_quarter_noise
+    - noncomparable_KPI
+    - single_party_claim_only
+    - insufficient_post_change_quarters
+    - unverified_economic_implementation
+  require_explicit_counter_evidence: true
+  require_falsification_trigger: true
+  require_claim_type_separation: true
+
+
+# V1.3: 规则增强，覆盖材料可得性、正反证据、合同质量、资本回报、正确估值与独立审计。
+research_mandate:
+  require_research_question: true
+  require_asof_and_event_clock: true
+  allowed_modes: [operating_only, earnings_and_cash, full_equity_valuation]
+  avoid_posthoc_question_selection: true
+  report_missing_inputs_on_first_page: true
+  market_reaction_requires_time_aligned_evidence: true
+
+evidence_balance:
+  required_for_material_claims: true
+  require_best_support_best_counter_and_null: true
+  do_not_force_equal_weight_on_opposing_evidence: true
+  record_search_scope_when_counter_evidence_missing: true
+  require_claim_coverage_fields:
+    - financial_driver
+    - independent_source_check
+    - competing_explanation
+    - falsifier
+  blocker_conditions:
+    - one_sided_material_valuation_thesis_without_countercheck
+    - counterevidence_declared_absent_without_search
+
+contract_quality:
+  compare_demand_with_contracts_and_capital_commitments: true
+  never_net_rpo_against_purchase_commitments: true
+  never_sum_purchase_lease_guarantees_and_capex_without_overlap_check: true
+  disallow_rpo_as_recognized_revenue_or_cash: true
+  require_contract_terms_or_explicit_unknown:
+    - product_scope
+    - timing
+    - cancellations_or_modifications
+    - revenue_recognition
+    - fulfillment_cost
+    - collection_terms
+    - concentration
+    - financing_or_related_party
+  require_same_project_and_horizon_for_coverage_ratio: true
+  require_funding_circularity_check_when_supported_by_evidence: true
+  distinguish_backlog_definition_changes: true
+  forbid_unverified_related_party_accusations: true
+  require_positive_offsets_check_for_large_capex_risks: true
+  require_costs_check_for_large_contract_opportunities: true
+
+growth_quality:
+  require_metric_level_definition_history: true
+  key_metric_definition_check_always_even_if_no_regime_break: true
+  separate_acquisition_fx_price_volume_mix_new_product_hardware: true
+  nondisclosed_organic_growth_label: unquantified
+  forbid_invented_organic_growth_rates: true
+  segment_margin_requires_corporate_cost_reconciliation: true
+  examine_shared_ai_research_and_infrastructure_costs: true
+  forbid_arbitrary_shared_cost_allocation_as_reported_fact: true
+  when_standalone_margin_unavailable: standalone_margin_unknown
+  require_per_incremental_revenue:
+    - gross_profit
+    - operating_profit
+    - operating_cash_flow_if_available
+    - invested_capital_if_available
+    - per_share_fcf_if_available
+
+cash_and_capital:
+  require_gaap_net_income_to_ocf_indirect_bridge: true
+  require_ytd_to_quarter_for_period_flows: true
+  require_ocf_to_cash_capex_to_fcf_bridge: true
+  distinguish_cash_capex_from_finance_leases_and_commitments: true
+  prohibit_depreciation_double_count_in_fcf: true
+  maintenance_vs_growth_capex_precision_requires_source: true
+  require_receivable_inventory_payable_and_contract_balance_changes: true
+  require_capex_to_capacity_to_utilization_to_returns_timeline: true
+  capex_returns_require_fulfillment_cost_and_timing: true
+  forbid_all_negative_fcf_as_operating_deterioration: true
+  financing:
+    distinguish_use_of_proceeds_from_shareholder_dilution: true
+    require_stock_issuance_reason_source: true
+    distinguish_atm_equity_sbc_share_settlement_tax_withholding: true
+    distinguish_proceeds_from_ocf: true
+    track_share_count_begin_end_weighted_and_fully_diluted: true
+    track_preferred_conversion_and_other_claims: true
+    require_per_share_cash_and_eps_metric: true
+
+valuation_integrity:
+  pre_event_timestamped_consensus_required_for_beat_miss: true
+  pre_event_guidance_vs_new_guidance_required: true
+  post_event_revision_cannot_replace_pre_event_snapshot: true
+  price_reaction_is_not_causality: true
+  assess_macroeconomic_and_contemporaneous_events: true
+  nonrecurring_eps_adjustment_bridge_required: true
+  marketcap_div_aftertax_op_income_is_not_standard_pe: true
+  require_enterprise_value_to_common_equity_bridge: true
+  require_same_time_price_shares_cash_and_debt: true
+  consider_preferred_minority_and_nonoperating_assets: true
+  prevent_double_count_converts_and_preferred_shares: true
+  scenarios_require_realistic_long_term_capex_and_cash: true
+  require_reverse_implied_expectations_when_valuation_is_goal: true
+  incomplete_core_input_label: valuation_incomplete
+  blocked_if:
+    - false_pe_from_operating_income
+    - material_below_line_gain_extrapolated_as_operating_eps
+    - enterprise_equity_denominator_mismatch
+    - alleged_pricing_error_without_required_inputs
+
+independent_qa:
+  separate_research_readiness_from_agent_performance: true
+  allowed_research_readiness: [decision_grade, conditional_only, factual_only, blocked]
+  allowed_agent_performance: [not_tested, synthetic_tests_executed, historical_holdout_validated, production_monitored]
+  default_agent_performance: not_tested
+  documented_test_cases_do_not_mean_executed: true
+  cannot_self_certify_from_single_case: true
+  require_independent_recalculation_for_material_metrics: true
+  unavailable_independent_validation_label: independent_validation_unavailable
+  require_coverage_matrix_fields:
+    - question_id
+    - source_required
+    - obtained
+    - definition_reconciled
+    - computation_reconciled
+    - counterevidence_searched
+    - cash_and_per_share_bridge
+    - final_status
+    - gap_impact
+  failure_severity_levels: [P0_block, P1_limit_valuation, P2_downgrade]
+  agent_performance_upgrade_requires:
+    - executed_test_logs
+    - denominator_and_sample_size
+    - verified_calculation_or_independent_reviewer
+    - error_record
+  preserve_original_asof_prediction_versions: true
+  historic_holdout_requires_point_in_time_sources: true
+  report_errors_and_unverified_checks: true
+
+sector_overrides: {}
+# 例：sector_overrides:
+#   saas:
+#     additional_kpis: [crpo, net_revenue_retention, renewal_rate]
+#   semiconductor_foundry:
+#     additional_kpis: [yield, utilization, wafers, capex, advanced_node_mix]
+# 本配置只覆盖候选检测规则；不能覆盖来源校验/禁止前视等硬性闸门。

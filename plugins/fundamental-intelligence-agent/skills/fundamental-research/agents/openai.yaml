@@ -1,0 +1,4 @@
+interface:
+  display_name: "基本面研究 Agent"
+  short_description: "核验财报、电话会与历史承诺，交叉验证产业链并审查每股现金流和前瞻估值"
+  default_prompt: "使用 $fundamental-research 研究 GOOGL 最新财报，核验增长质量、历史承诺及产业链反证，并说明数据缺口。"
