@@ -11,7 +11,7 @@
 
 把下面这句话发给你自己的 Codex：
 
-> 请从 https://github.com/hongyuning/touyan-analysis-agent 安装投研分析插件，按 README 注册插件市场并安装 touyan-analysis-agent@jidubiji-research。保留我现有的插件和配置，使用我自己的 ChatGPT/Codex 登录运行，不新建 API Key 或服务器。完成后告诉我如何在新聊天调用。
+> 请从 https://github.com/Jidubiji/touyan-analysis-agent 安装投研分析插件，按 README 注册插件市场并安装 touyan-analysis-agent@jidubiji-research。保留我现有的插件和配置，使用我自己的 ChatGPT/Codex 登录运行，不新建 API Key 或服务器。完成后告诉我如何在新聊天调用。
 
 Codex 会在你的本机执行安装，可能根据本机权限要求确认。
 
@@ -20,7 +20,7 @@ Codex 会在你的本机执行安装，可能根据本机权限要求确认。
 已安装当前 Codex CLI 的用户可以执行：
 
 ```sh
-codex plugin marketplace add https://github.com/hongyuning/touyan-analysis-agent
+codex plugin marketplace add https://github.com/Jidubiji/touyan-analysis-agent
 codex plugin add touyan-analysis-agent@jidubiji-research
 ```
 
@@ -59,7 +59,7 @@ codex plugin add touyan-analysis-agent@jidubiji-research
 
 ## 下载与更新
 
-[下载整个仓库 ZIP](https://github.com/hongyuning/touyan-analysis-agent/archive/refs/heads/main.zip)
+[下载整个仓库 ZIP](https://github.com/Jidubiji/touyan-analysis-agent/archive/refs/heads/main.zip)
 
 更新插件市场后，按客户端的更新／重新安装提示处理：
 
