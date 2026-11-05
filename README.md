@@ -72,3 +72,16 @@ codex plugin add touyan-analysis-agent@jidubiji-research
 原估值插件15个文件保持原样，其6份原始知识文件校验值见根目录 `source-sha256.json`。新版10份原件校验值见 `plugins/fundamental-intelligence-agent/source-sha256.json`。
 
 新版提供静态文档/配置校验器；89个合成案例仅为定义，未完成真实财报研究效果、逐例Agent实测或历史样本外验收，`agent_performance`保持 `not_tested`。具体范围和源文件遗留项见[新版说明](plugins/fundamental-intelligence-agent/README.md)。
+
+
+## 多周期分析 skill
+
+[多周期分析](skills/multi-timeframe-analysis/) 支持股票与 ETF 的周线、日线、60 分钟联动分析，完整展示价格与 MACD 对齐标注、动量峰谷比较、关键区域和条件式观察方案。
+
+把下面这句话发给自己的 Codex 即可安装。
+
+> 请使用 skill-installer 从 https://github.com/Jidubiji/touyan-analysis-agent/tree/main/skills/multi-timeframe-analysis 安装 multi-timeframe-analysis，完成后告诉我如何调用。
+
+使用示例为 `使用 $multi-timeframe-analysis 完整分析 KO，计划持仓 1—3 个月，展示三个周期的价格与 MACD 对齐标注图。`
+
+安装说明、数据条件与验证范围见 [skill 说明](skills/multi-timeframe-analysis/README.md)。

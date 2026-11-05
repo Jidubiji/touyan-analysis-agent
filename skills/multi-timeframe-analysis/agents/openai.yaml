@@ -1,0 +1,4 @@
+interface:
+  display_name: "多周期分析"
+  short_description: "结合周线、日线与小时结构，标注价格和MACD，研究股票与ETF波段机会"
+  default_prompt: "使用 $multi-timeframe-analysis 分析 SOXX，计划持仓 1—3 个月，完整展示三个周期的价格与MACD对齐标注图，并给出条件式结论。"
